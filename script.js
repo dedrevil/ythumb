@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     gsap.to('body', { opacity: 1, duration: 0.25 }); // Use GSAP for opacity animation
 });
 
@@ -15,17 +15,17 @@ function getThumbnails() {
         const sizes = ['default', 'medium', 'high', 'maxres'];
         //sizes.forEach(size => {
         //    const imageUrl = `https://img.youtube.com/vi/${videoId}/${size}default.jpg`;
-            const imageUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-            const imgElement = document.createElement('img');
-            imgElement.src = imageUrl;
-            imgElement.alt = `Thumbnail Maxres`;
-            thumbnailsContainer.appendChild(imgElement);
+        const imageUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+        const imgElement = document.createElement('img');
+        imgElement.src = imageUrl;
+        imgElement.alt = `Thumbnail Maxres`;
+        thumbnailsContainer.appendChild(imgElement);
         //});
-        
+
         //const dlbutton = document.getElementById('download-button');
         //const clbutton = document.getElementById('clear-button');
         //dlbutton.style.display='visible';
-                //clbutton.style.display='visible';
+        //clbutton.style.display='visible';
 
         showDownloadButton(videoId);
         imgUrl = imageUrl;
@@ -43,45 +43,47 @@ function showDownloadButton(videoId) {
 }
 
 function downloadImg() {
-alert(imgUrl);
-	window.open(imgUrl);
+    alert(imgUrl);
+    window.open(imgUrl);
 }
 
 
 function clean() {
-alert("calling reload")
-window.location.reload();
+    alert("calling reload")
+    window.location.reload();
 }
 
 async function downloadImage(
-  imageSrc, videoId,
-  nameOfDownload = videoId + '-thumbnail.jpg',
+    imageSrc, videoId,
+    nameOfDownload = videoId + '-thumbnail.jpg',
 ) {
-  const response = await fetch(imageSrc);
+    const response = await fetch(imageSrc);
 
-  const blobImage = await response.blob();
+    const blobImage = await response.blob();
 
-  const href = URL.createObjectURL(blobImage);
+    const href = URL.createObjectURL(blobImage);
 
-  const anchorElement = document.createElement('a');
-  anchorElement.href = href;
-  anchorElement.download = nameOfDownload;
+    const anchorElement = document.createElement('a');
+    anchorElement.href = href;
+    anchorElement.download = nameOfDownload;
 
-  document.body.appendChild(anchorElement);
-  anchorElement.click();
+    document.body.appendChild(anchorElement);
+    anchorElement.click();
 
-  document.body.removeChild(anchorElement);
-  window.URL.revokeObjectURL(href);
+    document.body.removeChild(anchorElement);
+    window.URL.revokeObjectURL(href);
 }
 
 function extractVideoId(url) {
     var token;
-    if(url.indexOf("?v=") > -1){
-    // Create an array using "?v=" as a delimiter, and we want the content on the right side of the original string
-    token = url.split("?v=")[1];
-    }else{
-    // Create an array using "/" as a delimiter, and pop() to get the last element in the array
-    token = url.split("/").pop();
+    if (url.indexOf("?v=") > -1) {
+        token = url.split("?v=")[1];
+    } else {
+        if (url.indexOf("?si=") > -1) {
+            url = url.split("?si=")[0];
+            token = url.split("/").pop();
+        } else
+            token = url.split("/").pop();
     }
     return token;
 }
