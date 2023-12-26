@@ -85,7 +85,7 @@ function extractVideoId(url) {
         } else
             token = url.split("/").pop();
     }
-    alert(token);
+    // alert(token);
     return token;
 }
 
