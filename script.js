@@ -83,7 +83,6 @@ function extractVideoId(url) {
     // Create an array using "/" as a delimiter, and pop() to get the last element in the array
     token = url.split("/").pop();
     }
-    alert(token);
     return token;
 }
 
