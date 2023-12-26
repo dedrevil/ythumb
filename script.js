@@ -75,8 +75,16 @@ async function downloadImage(
 }
 
 function extractVideoId(url) {
-    const match = url.match(/[?&]v=([^?&]+)/);
-    return match ? match[1] : null;
+    var token;
+    if(url.indexOf("?v=") > -1){
+    // Create an array using "?v=" as a delimiter, and we want the content on the right side of the original string
+    token = url.split("?v=")[1];
+    }else{
+    // Create an array using "/" as a delimiter, and pop() to get the last element in the array
+    token = url.split("/").pop();
+    }
+    alert(token);
+    return token;
 }
 
 function openPrivacyPolicy() {
